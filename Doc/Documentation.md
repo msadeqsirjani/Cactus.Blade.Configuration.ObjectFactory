@@ -20,11 +20,11 @@ For example, an `IConfiguration` created with this json file:
 
 ```json
 {
-    "bar": 123,
-    "baz": {
-        "qux": "abc",
-        "corge": true
-    }
+  "bar": 123,
+  "baz": {
+    "qux": "abc",
+    "corge": true
+  }
 }
 ```
 
@@ -60,11 +60,11 @@ The `Create` extension method supports mapping to types without default construc
 
 ```json
 {
-    "bar": 123,
-    "baz": {
-        "qux": "abc",
-        "corge": true
-    }
+  "bar": 123,
+  "baz": {
+    "qux": "abc",
+    "corge": true
+  }
 }
 ```
 
@@ -139,18 +139,18 @@ namespace MyNamespace
 }
 ```
 
-a instance of `Foo` can be created with a `Baz` property with a value of type `BazDerived` by specifying a `type/value` pair where the `type` is a *[assembly qualified name](https://msdn.microsoft.com/en-us/library/system.type.assemblyqualifiedname.aspx)*:
+a instance of `Foo` can be created with a `Baz` property with a value of type `BazDerived` by specifying a `type/value` pair where the `type` is a _[assembly qualified name](https://msdn.microsoft.com/en-us/library/system.type.assemblyqualifiedname.aspx)_:
 
 ```json
 {
-    "bar": 123,
-    "baz": {
-        "type": "MyNamespace.BazDerived, MyAssembly",
-        "value": {
-            "qux": "abc",
-            "corge": true
-        }
+  "bar": 123,
+  "baz": {
+    "type": "MyNamespace.BazDerived, MyAssembly",
+    "value": {
+      "qux": "abc",
+      "corge": true
     }
+  }
 }
 ```
 
@@ -186,18 +186,18 @@ is mappable from:
 
 ```json
 {
-    "bar": {
-        "type": "MyNamespace.Bar, MyAssembly",
-        "value": {
-            "qux": "abc"
-        }
-    },
-    "baz": {
-        "type": "MyNamespace.Baz, MyAssembly",
-        "value": {
-            "corge": true
-        }
+  "bar": {
+    "type": "MyNamespace.Bar, MyAssembly",
+    "value": {
+      "qux": "abc"
     }
+  },
+  "baz": {
+    "type": "MyNamespace.Baz, MyAssembly",
+    "value": {
+      "corge": true
+    }
+  }
 }
 ```
 
@@ -240,12 +240,12 @@ instead of a configuration like this:
 
 ```json
 {
-    "bars": [
-        {
-            "baz": "abc",
-            "qux": 123
-        }
-    ]
+  "bars": [
+    {
+      "baz": "abc",
+      "qux": 123
+    }
+  ]
 }
 ```
 
@@ -253,10 +253,10 @@ can be rewritten like this:
 
 ```json
 {
-    "bars": {
-        "baz": "abc",
-        "qux": 123
-    }
+  "bars": {
+    "baz": "abc",
+    "qux": 123
+  }
 }
 ```
 
@@ -269,6 +269,7 @@ Cactus.Blade.Configuration.ObjectFactory currently supports the following dictio
 - `IReadOnlyDictionary<string, TValue>`
 
 If a dictionary property is readonly, it must be one of the following dictionary types:
+
 - `Dictionary<string, TValue>`
 - `IDictionary<string, TValue>`
 
@@ -281,7 +282,7 @@ public class Foo
     {
         Bar = bar;
     }
-    
+
     public IReadOnlyDictionary<string, int> Bar { get; }
 }
 ```
@@ -290,10 +291,10 @@ A configuration might look like this:
 
 ```json
 {
-    "bar": {
-        "baz": 123,
-        "qux": 456
-    }
+  "bar": {
+    "baz": 123,
+    "qux": 456
+  }
 }
 ```
 
@@ -317,14 +318,14 @@ public class DefaultBar : IBar
 }
 ```
 
-We would like to be able to define the `DefaultBar` type as the default type - if the type is not otherwise specified, create an instance of `DefaultBar`. There are two ways of specifying the default type: by property or by type. When specified by property, we want to say: "when setting the `Foo.Bar` property, if the configuration is *not* type-specified, set the property to an instance of `DefaultBar`." When specified by type we want to say: "whenever creating an instance of `IBar`, if the configuration is *not* type-specified, create an instance of `DefaultBar`.
+We would like to be able to define the `DefaultBar` type as the default type - if the type is not otherwise specified, create an instance of `DefaultBar`. There are two ways of specifying the default type: by property or by type. When specified by property, we want to say: "when setting the `Foo.Bar` property, if the configuration is _not_ type-specified, set the property to an instance of `DefaultBar`." When specified by type we want to say: "whenever creating an instance of `IBar`, if the configuration is _not_ type-specified, create an instance of `DefaultBar`.
 
 To programmatically set `DefaultBar` as the default type for the `Foo.Bar` property, call the `Create` extension method as follows:
 
 ```c#
 DefaultTypes defaultTypes =
     new DefaultTypes().Add(typeof(Foo), nameof(Foo.Bar), typeof(DefaultBar));
-    
+
 Foo foo = configuration.Create<Foo>(defaultTypes: defaultTypes);
 ```
 
@@ -337,14 +338,14 @@ DefaultTypes defaultTypes =
 var foo = configuration.Create<Foo>(defaultTypes: defaultTypes);
 ```
 
-Default types can also be specified via attributes, so that the `defaultTypes` parameter in the `Create` extension method can be omitted. 
+Default types can also be specified via attributes, so that the `defaultTypes` parameter in the `Create` extension method can be omitted.
 
 ```c#
 public class Foo
 {
     [DefaultType(typeof(DefaultBar))]
     public IBar Bar { get; set; }
-    
+
     public IBaz Baz { get; set; }
 }
 
@@ -386,7 +387,7 @@ The `BigInteger.Parse` method meets the criteria for a convert function - it has
 ```c#
 ValueConverters valueConverters =
     new ValueConverters().Add(typeof(BigInteger), BigInteger.Parse);
-    
+
 Foo foo = configuration.Create<Foo>(valueConverters: valueConverters);
 ```
 
@@ -399,7 +400,7 @@ ValueConverters valueConverters =
 Foo foo = config.Create<Foo>(valueConverters: valueConverters);
 ```
 
-There are attributes for value converters, as with default types. In this case, the value of the attribute should be the name of a convert method. The method *must* be static, but can be either public or private.
+There are attributes for value converters, as with default types. In this case, the value of the attribute should be the name of a convert method. The method _must_ be static, but can be either public or private.
 
 ```c#
 public class Foo
@@ -408,7 +409,7 @@ public class Foo
 
     [ConvertMethod(nameof(ParseBaz))]
     public Baz Baz { get; set; }
-    
+
     private static Baz ParseBaz(string value) => new Baz(bool.Parse(value));
 }
 
@@ -416,16 +417,16 @@ public class Foo
 public struct Bar
 {
     public Bar(int qux) => Qux = qux;
-    
+
     public int Qux { get; }
-    
+
     public static Bar Parse(string value) => new Bar(int.Parse(value));
 }
 
 public struct Baz
 {
     public Baz(bool corge) => Corge = corge;
-    
+
     public bool Corge { get; }
 }
 ```
