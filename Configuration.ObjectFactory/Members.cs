@@ -37,21 +37,21 @@ namespace Cactus.Blade.Configuration.ObjectFactory
                 .Select(p => new Member(p.Name, p.PropertyType, MemberType.Property));
         }
 
-        public static bool IsReadonlyList(this PropertyInfo p)
+        public static bool IsReadonlyList(this PropertyInfo propertyInfo)
         {
-            return p.CanRead &&
-                   !p.CanWrite && (p.PropertyType.GetTypeInfo().IsGenericType &&
-                                   (p.PropertyType.GetGenericTypeDefinition() == typeof(List<>) ||
-                                    p.PropertyType.GetGenericTypeDefinition() == typeof(IList<>) ||
-                                    p.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>)) ||
-                                   p.PropertyType.IsNonGenericList());
+            return propertyInfo.CanRead &&
+                   !propertyInfo.CanWrite && (propertyInfo.PropertyType.GetTypeInfo().IsGenericType &&
+                                   (propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(List<>) ||
+                                    propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(IList<>) ||
+                                    propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>)) ||
+                                   propertyInfo.PropertyType.IsNonGenericList());
         }
 
-        public static bool IsReadonlyDictionary(this PropertyInfo p)
+        public static bool IsReadonlyDictionary(this PropertyInfo propertyInfo)
         {
-            return p.CanRead && !p.CanWrite && p.PropertyType.GetTypeInfo().IsGenericType &&
-                   (p.PropertyType.GetGenericTypeDefinition() == typeof(Dictionary<,>) ||
-                    p.PropertyType.GetGenericTypeDefinition() == typeof(IDictionary<,>));
+            return propertyInfo.CanRead && !propertyInfo.CanWrite && propertyInfo.PropertyType.GetTypeInfo().IsGenericType &&
+                   (propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Dictionary<,>) ||
+                    propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(IDictionary<,>));
         }
     }
 }
