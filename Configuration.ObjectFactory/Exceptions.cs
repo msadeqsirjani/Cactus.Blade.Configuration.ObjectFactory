@@ -33,10 +33,7 @@ namespace Cactus.Blade.Configuration.ObjectFactory
                 $"The configuration-specified type, '{specifiedType}' is not assignable to the target type {targetType}.");
         }
 
-        public static InvalidOperationException TypeNotSpecifiedForReloadingProxy
-        {
-            get { return new InvalidOperationException($"Type not specified for reloading proxy. {SpecifyType}"); }
-        }
+        public static InvalidOperationException TypeNotSpecifiedForReloadingProxy => new InvalidOperationException($"Type not specified for reloading proxy. {SpecifyType}");
 
         public static InvalidOperationException ConfigurationIsNotAList(IConfiguration configuration,
             Type targetCollectionType)
@@ -58,14 +55,9 @@ namespace Cactus.Blade.Configuration.ObjectFactory
                 $"Cannot create instance of abstract target type, '{targetType}' from {configuration.Description()}. {SpecifyType}");
         }
 
-        public static InvalidOperationException CannotCreateObjectType
-        {
-            get
-            {
-                return new InvalidOperationException(
-                    $"Cannot create instance of target type {typeof(object)}. {SpecifyType}");
-            }
-        }
+        public static InvalidOperationException CannotCreateObjectType =>
+            new InvalidOperationException(
+                $"Cannot create instance of target type {typeof(object)}. {SpecifyType}");
 
         public static InvalidOperationException UnsupportedCollectionType(Type targetCollectionType)
         {
@@ -101,10 +93,7 @@ namespace Cactus.Blade.Configuration.ObjectFactory
                 $"More than one member (property or constructor parameter) matching the name '{memberName}' is decorated with a {nameof(DefaultTypeAttribute)} attribute. All decorated members matching the same name must have the same type.");
         }
 
-        public static InvalidOperationException NoPublicConstructorsFound
-        {
-            get { return new InvalidOperationException("No public constructors found."); }
-        }
+        public static InvalidOperationException NoPublicConstructorsFound => new InvalidOperationException("No public constructors found.");
 
         public static InvalidOperationException AmbiguousConstructors(Type type)
         {
