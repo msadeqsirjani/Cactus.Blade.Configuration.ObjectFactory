@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Cactus.Blade.Configuration.ObjectFactory
 {
-    internal class ConstructorOrderInfo : IComparable<ConstructorOrderInfo>
+    public class ConstructorOrderInfo : IComparable<ConstructorOrderInfo>
     {
         public ConstructorOrderInfo(ConstructorInfo constructor, IReadOnlyDictionary<string, IConfigurationSection> availableMembers, IResolver resolver)
         {
