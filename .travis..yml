@@ -1,0 +1,10 @@
+language: csharp
+mono: none
+dotnet: 2.1.502
+solution: Cactus.Blade.Configuration.ObjectFactory.sln
+install:
+  - dotnet restore
+script:
+  - dotnet msbuild /p:Configuration.ObjectFactory=Release Cactus.Blade.Configuration.ObjectFactory.sln
+  - dotnet restore
+  - dotnet test Configuration.ObjectFactory.Test/Configuration.ObjectFactory.Test.csproj
