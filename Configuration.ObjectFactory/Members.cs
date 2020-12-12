@@ -54,29 +54,4 @@ namespace Cactus.Blade.Configuration.ObjectFactory
                     p.PropertyType.GetGenericTypeDefinition() == typeof(IDictionary<,>));
         }
     }
-
-    public class Member
-    {
-        public Member(string name, Type type, MemberType memberType)
-        {
-            Name = name;
-            Type = type;
-            MemberType = memberType;
-        }
-
-        public string Name { get; }
-        public Type Type { get; }
-        public MemberType MemberType { get; }
-
-        public override string ToString()
-        {
-            return $"{(MemberType == MemberType.Property ? "Property" : "Constructor parameter")}: {Type} {Name}";
-        }
-    }
-
-    public enum MemberType
-    {
-        Property,
-        ConstructorParameter
-    }
 }
