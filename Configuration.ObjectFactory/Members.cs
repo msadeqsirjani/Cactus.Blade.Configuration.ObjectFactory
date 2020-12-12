@@ -55,7 +55,7 @@ namespace Cactus.Blade.Configuration.ObjectFactory
         }
     }
 
-    internal class Member
+    public class Member
     {
         public Member(string name, Type type, MemberType memberType)
         {
@@ -74,7 +74,7 @@ namespace Cactus.Blade.Configuration.ObjectFactory
         }
     }
 
-    internal enum MemberType
+    public enum MemberType
     {
         Property,
         ConstructorParameter
